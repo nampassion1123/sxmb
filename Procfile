@@ -1,1 +1,1 @@
-web: NODE_TLS_REJECT_UNAUTHORIZED='0' node server.js
+web: node server.js
