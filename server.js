@@ -9,17 +9,18 @@ let minutes = date.getMinutes();
 app.use(bodyparser.urlencoded({extended: true}));
 app.use(bodyparser.json());
 
-var dbConn = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "Ta241479590@",
-  database: "nodejs_db"
-});
-dbConn.connect();
-
-var server = app.listen(3000, function() {
-  console.log('Server listening on port ' + server.address().port +" " +hours +":"+minutes);
-}); 
+// var dbConn = mysql.createConnection({
+//   host: "localhost",
+//   user: "root",
+//   password: "Ta241479590@",
+//   database: "nodejs_db"
+// });
+// pool.connect();
+const { pool } = require('./config')
+app.set('port', process.env.PORT || 3000);
+// var server = app.listen(3000, function() {
+//   console.log('Server listening on port ' + server.address().port +" " +hours +":"+minutes);
+// }); 
 var request = require("request");
 var cheerio = require("cheerio");
 var date_ob = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -121,55 +122,55 @@ function getData(){
   
             if (day == "Monday") {
               var sqlTP = "UPDATE kqsx SET giai8='"+listGiai8[0]+"',giai7_0='"+listGiai70[0]+"',giai6_0='"+listGiai60[0]+"',giai6_1='"+listGiai61[0]+"',giai6_2='"+listGiai62[0]+"',giai5_0='"+listGiai50[0]+"',giai4_0='"+listGiai40[0]+"',giai4_1='"+listGiai41[0]+"',giai4_2='"+listGiai42[0]+"',giai4_3='"+listGiai43[0]+"',giai4_4='"+listGiai44[0]+"',giai4_5='"+listGiai45[0]+"',giai4_6='"+listGiai46[0]+"',giai3_0='"+listGiai30[0]+"',giai3_1='"+listGiai31[0]+"',giai2_0='"+listGiai20[0]+"',giai1='"+listGiai1[0]+"',giai_db ='"+listGiaiDB[0]+"' WHERE name = 'TP'";
-              dbConn.query(sqlTP, function (err, result) { if (err) throw err; console.log("insert HCM"); });
+              pool.query(sqlTP, function (err, result) { if (err) throw err; console.log("insert HCM"); });
               var sqlDT = "UPDATE kqsx SET giai8='"+listGiai8[1]+"',giai7_0='"+listGiai70[1]+"',giai6_0='"+listGiai60[1]+"',giai6_1='"+listGiai61[1]+"',giai6_2='"+listGiai62[1]+"',giai5_0='"+listGiai50[1]+"',giai4_0='"+listGiai40[1]+"',giai4_1='"+listGiai41[1]+"',giai4_2='"+listGiai42[1]+"',giai4_3='"+listGiai43[1]+"',giai4_4='"+listGiai44[1]+"',giai4_5='"+listGiai45[1]+"',giai4_6='"+listGiai46[1]+"',giai3_0='"+listGiai30[1]+"',giai3_1='"+listGiai31[1]+"',giai2_0='"+listGiai20[1]+"',giai1='"+listGiai1[1]+"',giai_db ='"+listGiaiDB[1]+"' WHERE name = 'DT'";
-              dbConn.query(sqlDT, function (err, result) { if (err) throw err; console.log("insert DT"); });
+              pool.query(sqlDT, function (err, result) { if (err) throw err; console.log("insert DT"); });
               var sqlCM =  "UPDATE kqsx SET giai8='"+listGiai8[2]+"',giai7_0='"+listGiai70[2]+"',giai6_0='"+listGiai60[2]+"',giai6_1='"+listGiai61[2]+"',giai6_2='"+listGiai62[2]+"',giai5_0='"+listGiai50[2]+"',giai4_0='"+listGiai40[2]+"',giai4_1='"+listGiai41[2]+"',giai4_2='"+listGiai42[2]+"',giai4_3='"+listGiai43[2]+"',giai4_4='"+listGiai44[2]+"',giai4_5='"+listGiai45[2]+"',giai4_6='"+listGiai46[2]+"',giai3_0='"+listGiai30[2]+"',giai3_1='"+listGiai31[2]+"',giai2_0='"+listGiai20[2]+"',giai1='"+listGiai1[2]+"',giai_db ='"+listGiaiDB[2]+"' WHERE name = 'CM'";
-              dbConn.query(sqlCM, function (err, result) { if (err) throw err; console.log("insert CM"); });
+              pool.query(sqlCM, function (err, result) { if (err) throw err; console.log("insert CM"); });
             } else if (day == "Tuesday") {
               var sqlBT = "UPDATE kqsx SET giai8='"+listGiai8[0]+"',giai7_0='"+listGiai70[0]+"',giai6_0='"+listGiai60[0]+"',giai6_1='"+listGiai61[0]+"',giai6_2='"+listGiai62[0]+"',giai5_0='"+listGiai50[0]+"',giai4_0='"+listGiai40[0]+"',giai4_1='"+listGiai41[0]+"',giai4_2='"+listGiai42[0]+"',giai4_3='"+listGiai43[0]+"',giai4_4='"+listGiai44[0]+"',giai4_5='"+listGiai45[0]+"',giai4_6='"+listGiai46[0]+"',giai3_0='"+listGiai30[0]+"',giai3_1='"+listGiai31[0]+"',giai2_0='"+listGiai20[0]+"',giai1='"+listGiai1[0]+"',giai_db ='"+listGiaiDB[0]+"' WHERE name = 'BT'";
-              dbConn.query(sqlBT, function (err, result) { if (err) throw err; console.log("insert BT"); });
+              pool.query(sqlBT, function (err, result) { if (err) throw err; console.log("insert BT"); });
               var sqlVT = "UPDATE kqsx SET giai8='"+listGiai8[1]+"',giai7_0='"+listGiai70[1]+"',giai6_0='"+listGiai60[1]+"',giai6_1='"+listGiai61[1]+"',giai6_2='"+listGiai62[1]+"',giai5_0='"+listGiai50[1]+"',giai4_0='"+listGiai40[1]+"',giai4_1='"+listGiai41[1]+"',giai4_2='"+listGiai42[1]+"',giai4_3='"+listGiai43[1]+"',giai4_4='"+listGiai44[1]+"',giai4_5='"+listGiai45[1]+"',giai4_6='"+listGiai46[1]+"',giai3_0='"+listGiai30[1]+"',giai3_1='"+listGiai31[1]+"',giai2_0='"+listGiai20[1]+"',giai1='"+listGiai1[1]+"',giai_db ='"+listGiaiDB[1]+"' WHERE name = 'VT'";
-              dbConn.query(sqlVT, function (err, result) { if (err) throw err; console.log("insert VT"); });
+              pool.query(sqlVT, function (err, result) { if (err) throw err; console.log("insert VT"); });
               var sqlBLIEU = "UPDATE kqsx SET giai8='"+listGiai8[2]+"',giai7_0='"+listGiai70[2]+"',giai6_0='"+listGiai60[2]+"',giai6_1='"+listGiai61[2]+"',giai6_2='"+listGiai62[2]+"',giai5_0='"+listGiai50[2]+"',giai4_0='"+listGiai40[2]+"',giai4_1='"+listGiai41[2]+"',giai4_2='"+listGiai42[2]+"',giai4_3='"+listGiai43[2]+"',giai4_4='"+listGiai44[2]+"',giai4_5='"+listGiai45[2]+"',giai4_6='"+listGiai46[2]+"',giai3_0='"+listGiai30[2]+"',giai3_1='"+listGiai31[2]+"',giai2_0='"+listGiai20[2]+"',giai1='"+listGiai1[2]+"',giai_db ='"+listGiaiDB[2]+"' WHERE name = 'BLIEU'";
-              dbConn.query(sqlBLIEU, function (err, result) { if (err) throw err; console.log("insert BLIEU"); });
+              pool.query(sqlBLIEU, function (err, result) { if (err) throw err; console.log("insert BLIEU"); });
             } else if (day == "Wednesday") {
               var sqlDN = "UPDATE kqsx SET giai8='"+listGiai8[0]+"',giai7_0='"+listGiai70[0]+"',giai6_0='"+listGiai60[0]+"',giai6_1='"+listGiai61[0]+"',giai6_2='"+listGiai62[0]+"',giai5_0='"+listGiai50[0]+"',giai4_0='"+listGiai40[0]+"',giai4_1='"+listGiai41[0]+"',giai4_2='"+listGiai42[0]+"',giai4_3='"+listGiai43[0]+"',giai4_4='"+listGiai44[0]+"',giai4_5='"+listGiai45[0]+"',giai4_6='"+listGiai46[0]+"',giai3_0='"+listGiai30[0]+"',giai3_1='"+listGiai31[0]+"',giai2_0='"+listGiai20[0]+"',giai1='"+listGiai1[0]+"',giai_db ='"+listGiaiDB[0]+"' WHERE name = 'DN'";
-              dbConn.query(sqlDN, function (err, result) { if (err) throw err; console.log("insert DN"); });
+              pool.query(sqlDN, function (err, result) { if (err) throw err; console.log("insert DN"); });
               var sqlCT = "UPDATE kqsx SET giai8='"+listGiai8[1]+"',giai7_0='"+listGiai70[1]+"',giai6_0='"+listGiai60[1]+"',giai6_1='"+listGiai61[1]+"',giai6_2='"+listGiai62[1]+"',giai5_0='"+listGiai50[1]+"',giai4_0='"+listGiai40[1]+"',giai4_1='"+listGiai41[1]+"',giai4_2='"+listGiai42[1]+"',giai4_3='"+listGiai43[1]+"',giai4_4='"+listGiai44[1]+"',giai4_5='"+listGiai45[1]+"',giai4_6='"+listGiai46[1]+"',giai3_0='"+listGiai30[1]+"',giai3_1='"+listGiai31[1]+"',giai2_0='"+listGiai20[1]+"',giai1='"+listGiai1[1]+"',giai_db ='"+listGiaiDB[1]+"' WHERE name = 'CT'";
-              dbConn.query(sqlCT, function (err, result) { if (err) throw err; console.log("insert CT"); });
+              pool.query(sqlCT, function (err, result) { if (err) throw err; console.log("insert CT"); });
               var sqlST = "UPDATE kqsx SET giai8='"+listGiai8[2]+"',giai7_0='"+listGiai70[2]+"',giai6_0='"+listGiai60[2]+"',giai6_1='"+listGiai61[2]+"',giai6_2='"+listGiai62[2]+"',giai5_0='"+listGiai50[2]+"',giai4_0= '"+listGiai40[2]+"',giai4_1='"+listGiai41[2]+"',giai4_2='"+listGiai42[2]+"',giai4_3='"+listGiai43[2]+"',giai4_4='"+listGiai44[2]+"',giai4_5='"+listGiai45[2]+"',giai4_6='"+listGiai46[2]+"',giai3_0='"+listGiai30[2]+"',giai3_1='"+listGiai31[2]+"',giai2_0='"+listGiai20[2]+"',giai1='"+listGiai1[2]+"',giai_db ='"+listGiaiDB[2]+"' WHERE name = 'ST'";
-              dbConn.query(sqlST, function (err, result) { if (err) throw err; console.log("insert ST"); });
+              pool.query(sqlST, function (err, result) { if (err) throw err; console.log("insert ST"); });
             } else if (day == "Thursday") {
               var sqlTN = "UPDATE kqsx SET giai8='"+listGiai8[0]+"',giai7_0='"+listGiai70[0]+"',giai6_0='"+listGiai60[0]+"',giai6_1='"+listGiai61[0]+"',giai6_2='"+listGiai62[0]+"',giai5_0='"+listGiai50[0]+"',giai4_0='"+listGiai40[0]+"',giai4_1='"+listGiai41[0]+"',giai4_2='"+listGiai42[0]+"',giai4_3='"+listGiai43[0]+"',giai4_4='"+listGiai44[0]+"',giai4_5='"+listGiai45[0]+"',giai4_6='"+listGiai46[0]+"',giai3_0='"+listGiai30[0]+"',giai3_1='"+listGiai31[0]+"',giai2_0='"+listGiai20[0]+"',giai1='"+listGiai1[0]+"',giai_db ='"+listGiaiDB[0]+"' WHERE name = 'TN'";
-              dbConn.query(sqlTN, function (err, result) { if (err) throw err; console.log("insert TN"); });
+              pool.query(sqlTN, function (err, result) { if (err) throw err; console.log("insert TN"); });
               var sqlAG = "UPDATE kqsx SET giai8='"+listGiai8[1]+"',giai7_0='"+listGiai70[1]+"',giai6_0='"+listGiai60[1]+"',giai6_1='"+listGiai61[1]+"',giai6_2='"+listGiai62[1]+"',giai5_0='"+listGiai50[1]+"',giai4_0='"+listGiai40[1]+"',giai4_1='"+listGiai41[1]+"',giai4_2='"+listGiai42[1]+"',giai4_3='"+listGiai43[1]+"',giai4_4='"+listGiai44[1]+"',giai4_5='"+listGiai45[1]+"',giai4_6='"+listGiai46[1]+"',giai3_0='"+listGiai30[1]+"',giai3_1='"+listGiai31[1]+"',giai2_0='"+listGiai20[1]+"',giai1='"+listGiai1[1]+"',giai_db ='"+listGiaiDB[1]+"' WHERE name = 'AG'";
-              dbConn.query(sqlAG, function (err, result) { if (err) throw err; console.log("insert AG"); });
+              pool.query(sqlAG, function (err, result) { if (err) throw err; console.log("insert AG"); });
               var sqlBTH = "UPDATE kqsx SET giai8='"+listGiai8[2]+"',giai7_0='"+listGiai70[2]+"',giai6_0='"+listGiai60[2]+"',giai6_1='"+listGiai61[2]+"',giai6_2='"+listGiai62[2]+"',giai5_0='"+listGiai50[2]+"',giai4_0='"+listGiai40[2]+"',giai4_1='"+listGiai41[2]+"',giai4_2='"+listGiai42[2]+"',giai4_3='"+listGiai43[2]+"',giai4_4='"+listGiai44[2]+"',giai4_5='"+listGiai45[2]+"',giai4_6='"+listGiai46[2]+"',giai3_0='"+listGiai30[2]+"',giai3_1='"+listGiai31[2]+"',giai2_0='"+listGiai20[2]+"',giai1='"+listGiai1[2]+"',giai_db ='"+listGiaiDB[2]+"' WHERE name = 'BTH'";
-              dbConn.query(sqlBTH, function (err, result) { if (err) throw err; console.log("insert BTH"); });
+              pool.query(sqlBTH, function (err, result) { if (err) throw err; console.log("insert BTH"); });
             } else if (day == "Friday") {
               var sqlVL = "UPDATE kqsx SET giai8='"+listGiai8[0]+"',giai7_0='"+listGiai70[0]+"',giai6_0='"+listGiai60[0]+"',giai6_1='"+listGiai61[0]+"',giai6_2='"+listGiai62[0]+"',giai5_0='"+listGiai50[0]+"',giai4_0='"+listGiai40[0]+"',giai4_1='"+listGiai41[0]+"',giai4_2='"+listGiai42[0]+"',giai4_3='"+listGiai43[0]+"',giai4_4='"+listGiai44[0]+"',giai4_5='"+listGiai45[0]+"',giai4_6='"+listGiai46[0]+"',giai3_0='"+listGiai30[0]+"',giai3_1='"+listGiai31[0]+"',giai2_0='"+listGiai20[0]+"',giai1='"+listGiai1[0]+"',giai_db ='"+listGiaiDB[0]+"' WHERE name = 'VL'";
-              dbConn.query(sqlVL, function (err, result) { if (err) throw err; console.log("insert VL"); });
+              pool.query(sqlVL, function (err, result) { if (err) throw err; console.log("insert VL"); });
               var sqlSBE = "UPDATE kqsx SET giai8='"+listGiai8[1]+"',giai7_0='"+listGiai70[1]+"',giai6_0='"+listGiai60[1]+"',giai6_1='"+listGiai61[1]+"',giai6_2='"+listGiai62[1]+"',giai5_0='"+listGiai50[1]+"',giai4_0='"+listGiai40[1]+"',giai4_1='"+listGiai41[1]+"',giai4_2='"+listGiai42[1]+"',giai4_3='"+listGiai43[1]+"',giai4_4='"+listGiai44[1]+"',giai4_5='"+listGiai45[1]+"',giai4_6='"+listGiai46[1]+"',giai3_0='"+listGiai30[1]+"',giai3_1='"+listGiai31[1]+"',giai2_0='"+listGiai20[1]+"',giai1='"+listGiai1[1]+"',giai_db ='"+listGiaiDB[1]+"' WHERE name = 'SBE'";
-              dbConn.query(sqlSBE, function (err, result) { if (err) throw err; console.log("insert SBE"); });
+              pool.query(sqlSBE, function (err, result) { if (err) throw err; console.log("insert SBE"); });
               var sqlTV =  "UPDATE kqsx SET giai8='"+listGiai8[2]+"',giai7_0='"+listGiai70[2]+"',giai6_0='"+listGiai60[2]+"',giai6_1='"+listGiai61[2]+"',giai6_2='"+listGiai62[2]+"',giai5_0='"+listGiai50[2]+"',giai4_0='"+listGiai40[2]+"',giai4_1='"+listGiai41[2]+"',giai4_2='"+listGiai42[2]+"',giai4_3='"+listGiai43[2]+"',giai4_4='"+listGiai44[2]+"',giai4_5='"+listGiai45[2]+"',giai4_6='"+listGiai46[2]+"',giai3_0='"+listGiai30[2]+"',giai3_1='"+listGiai31[2]+"',giai2_0='"+listGiai20[2]+"',giai1='"+listGiai1[2]+"',giai_db ='"+listGiaiDB[2]+"' WHERE name = 'TV'";
-              dbConn.query(sqlTV, function (err, result) { if (err) throw err; console.log("insert TV"); });
+              pool.query(sqlTV, function (err, result) { if (err) throw err; console.log("insert TV"); });
             }else if (day == "Saturday") {
               var sqlTP = "UPDATE kqsx SET giai8='"+listGiai8[0]+"',giai7_0='"+listGiai70[0]+"',giai6_0='"+listGiai60[0]+"',giai6_1='"+listGiai61[0]+"',giai6_2='"+listGiai62[0]+"',giai5_0='"+listGiai50[0]+"',giai4_0='"+listGiai40[0]+"',giai4_1='"+listGiai41[0]+"',giai4_2='"+listGiai42[0]+"',giai4_3='"+listGiai43[0]+"',giai4_4='"+listGiai44[0]+"',giai4_5='"+listGiai45[0]+"',giai4_6='"+listGiai46[0]+"',giai3_0='"+listGiai30[0]+"',giai3_1='"+listGiai31[0]+"',giai2_0='"+listGiai20[0]+"',giai1='"+listGiai1[0]+"',giai_db ='"+listGiaiDB[0]+"' WHERE name = 'TP'";
-              dbConn.query(sqlTP, function (err, result) { if (err) throw err; console.log("insert TP"); });
+              pool.query(sqlTP, function (err, result) { if (err) throw err; console.log("insert TP"); });
               var sqlLA = "UPDATE kqsx SET giai8='"+listGiai8[1]+"',giai7_0='"+listGiai70[1]+"',giai6_0='"+listGiai60[1]+"',giai6_1='"+listGiai61[1]+"',giai6_2='"+listGiai62[1]+"',giai5_0='"+listGiai50[1]+"',giai4_0='"+listGiai40[1]+"',giai4_1='"+listGiai41[1]+"',giai4_2='"+listGiai42[1]+"',giai4_3='"+listGiai43[1]+"',giai4_4='"+listGiai44[1]+"',giai4_5='"+listGiai45[1]+"',giai4_6='"+listGiai46[1]+"',giai3_0='"+listGiai30[1]+"',giai3_1='"+listGiai31[1]+"',giai2_0='"+listGiai20[1]+"',giai1='"+listGiai1[1]+"',giai_db ='"+listGiaiDB[1]+"' WHERE name = 'LA'";
-              dbConn.query(sqlLA, function (err, result) { if (err) throw err; console.log("insert LA"); });
+              pool.query(sqlLA, function (err, result) { if (err) throw err; console.log("insert LA"); });
               var sqlBP =  "UPDATE kqsx SET giai8='"+listGiai8[2]+"',giai7_0='"+listGiai70[2]+"',giai6_0='"+listGiai60[2]+"',giai6_1='"+listGiai61[2]+"',giai6_2='"+listGiai62[2]+"',giai5_0='"+listGiai50[2]+"',giai4_0='"+listGiai40[2]+"',giai4_1='"+listGiai41[2]+"',giai4_2='"+listGiai42[2]+"',giai4_3='"+listGiai43[2]+"',giai4_4='"+listGiai44[2]+"',giai4_5='"+listGiai45[2]+"',giai4_6='"+listGiai46[2]+"',giai3_0='"+listGiai30[2]+"',giai3_1='"+listGiai31[2]+"',giai2_0='"+listGiai20[2]+"',giai1='"+listGiai1[2]+"',giai_db ='"+listGiaiDB[2]+"' WHERE name = 'BP'";
-              dbConn.query(sqlBP, function (err, result) { if (err) throw err; console.log("insert BP"); });
+              pool.query(sqlBP, function (err, result) { if (err) throw err; console.log("insert BP"); });
               var sqlHG =  "UPDATE kqsx SET giai8='"+listGiai8[3]+"',giai7_0='"+listGiai70[3]+"',giai6_0='"+listGiai60[3]+"',giai6_1='"+listGiai61[3]+"',giai6_2='"+listGiai62[3]+"',giai5_0='"+listGiai50[3]+"',giai4_0='"+listGiai40[3]+"',giai4_1='"+listGiai41[3]+"',giai4_2='"+listGiai42[3]+"',giai4_3='"+listGiai43[3]+"',giai4_4='"+listGiai44[3]+"',giai4_5='"+listGiai45[3]+"',giai4_6='"+listGiai46[3]+"',giai3_0='"+listGiai30[3]+"',giai3_1='"+listGiai31[3]+"',giai2_0='"+listGiai20[3]+"',giai1='"+listGiai1[3]+"',giai_db ='"+listGiaiDB[3]+"' WHERE name = 'HG'";
-              dbConn.query(sqlHG, function (err, result) { if (err) throw err; console.log("insert HG"); });
+              pool.query(sqlHG, function (err, result) { if (err) throw err; console.log("insert HG"); });
             } else if (day == "Sunday") {
               var sqlTG = "UPDATE kqsx SET giai8='"+listGiai8[0]+"',giai7_0='"+listGiai70[0]+"',giai6_0='"+listGiai60[0]+"',giai6_1='"+listGiai61[0]+"',giai6_2='"+listGiai62[0]+"',giai5_0='"+listGiai50[0]+"',giai4_0='"+listGiai40[0]+"',giai4_1='"+listGiai41[0]+"',giai4_2='"+listGiai42[0]+"',giai4_3='"+listGiai43[0]+"',giai4_4='"+listGiai44[0]+"',giai4_5='"+listGiai45[0]+"',giai4_6='"+listGiai46[0]+"',giai3_0='"+listGiai30[0]+"',giai3_1='"+listGiai31[0]+"',giai2_0='"+listGiai20[0]+"',giai1='"+listGiai1[0]+"',giai_db ='"+listGiaiDB[0]+"' WHERE name = 'TG'";
-              dbConn.query(sqlTG, function (err, result) { if (err) throw err; console.log("insert TG"); });
+              pool.query(sqlTG, function (err, result) { if (err) throw err; console.log("insert TG"); });
               var sqlKG = "UPDATE kqsx SET giai8='"+listGiai8[1]+"',giai7_0='"+listGiai70[1]+"',giai6_0='"+listGiai60[1]+"',giai6_1='"+listGiai61[1]+"',giai6_2='"+listGiai62[1]+"',giai5_0='"+listGiai50[1]+"',giai4_0='"+listGiai40[1]+"',giai4_1='"+listGiai41[1]+"',giai4_2='"+listGiai42[1]+"',giai4_3='"+listGiai43[1]+"',giai4_4='"+listGiai44[1]+"',giai4_5='"+listGiai45[1]+"',giai4_6='"+listGiai46[1]+"',giai3_0='"+listGiai30[1]+"',giai3_1='"+listGiai31[1]+"',giai2_0='"+listGiai20[1]+"',giai1='"+listGiai1[1]+"',giai_db ='"+listGiaiDB[1]+"' WHERE name = 'KG'";
-              dbConn.query(sqlKG, function (err, result) { if (err) throw err; console.log("insert KG"); });
+              pool.query(sqlKG, function (err, result) { if (err) throw err; console.log("insert KG"); });
               var sqlDL = "UPDATE kqsx SET giai8='"+listGiai8[2]+"',giai7_0='"+listGiai70[2]+"',giai6_0='"+listGiai60[2]+"',giai6_1='"+listGiai61[2]+"',giai6_2='"+listGiai62[2]+"',giai5_0='"+listGiai50[2]+"',giai4_0='"+listGiai40[2]+"',giai4_1='"+listGiai41[2]+"',giai4_2='"+listGiai42[2]+"',giai4_3='"+listGiai43[2]+"',giai4_4='"+listGiai44[2]+"',giai4_5='"+listGiai45[2]+"',giai4_6='"+listGiai46[2]+"',giai3_0='"+listGiai30[2]+"',giai3_1='"+listGiai31[2]+"',giai2_0='"+listGiai20[2]+"',giai1='"+listGiai1[2]+"',giai_db ='"+listGiaiDB[2]+"' WHERE name = 'DL'";
-              dbConn.query(sqlDL, function (err, result) { if (err) throw err; console.log("insert DL"); });
+              pool.query(sqlDL, function (err, result) { if (err) throw err; console.log("insert DL"); });
             }
           
   
@@ -272,25 +273,25 @@ function getData(){
             
             if (day == "Monday") {
               var sqlTP = "UPDATE kqsx SET giai7_0='"+listGiai70[0]+"',giai7_1='"+listGiai71[0]+"',giai7_2='"+listGiai72[0]+"',giai7_3='"+listGiai73[0]+"',giai6_0='"+listGiai60[0]+"',giai6_1='"+listGiai61[0]+"',giai6_2='"+listGiai62[0]+"',giai5_0='"+listGiai50[0]+"',giai5_1='"+listGiai51[0]+"',giai5_2='"+listGiai52[0]+"',giai5_3='"+listGiai53[0]+"',giai5_4='"+listGiai54[0]+"',giai5_5='"+listGiai55[0]+"',giai4_0='"+listGiai40[0]+"',giai4_1='"+listGiai41[0]+"',giai4_2='"+listGiai42[0]+"',giai4_3='"+listGiai43[0]+"',giai3_0='"+listGiai30[0]+"',giai3_1='"+listGiai31[0]+"',giai3_2='"+listGiai32[0]+"',giai3_3='"+listGiai33[0]+"',giai3_4='"+listGiai34[0]+"',giai3_5='"+listGiai35[0]+"',giai2_0='"+listGiai20[0]+"',giai2_1='"+listGiai21[0]+"',giai1='"+listGiai1[0]+"',giai_db ='"+listGiaiDB[0]+"' WHERE name = 'mb_t2'";
-              dbConn.query(sqlTP, function (err, result) { if (err) throw err; console.log("insert MB_t2"); });
+              pool.query(sqlTP, function (err, result) { if (err) throw err; console.log("insert MB_t2"); });
             } else if (day == "Tuesday") {
               var sqlBT = "UPDATE kqsx SET giai7_0='"+listGiai70[0]+"',giai7_1='"+listGiai71[0]+"',giai7_2='"+listGiai72[0]+"',giai7_3='"+listGiai73[0]+"',giai6_0='"+listGiai60[0]+"',giai6_1='"+listGiai61[0]+"',giai6_2='"+listGiai62[0]+"',giai5_0='"+listGiai50[0]+"',giai5_1='"+listGiai51[0]+"',giai5_2='"+listGiai52[0]+"',giai5_3='"+listGiai53[0]+"',giai5_4='"+listGiai54[0]+"',giai5_5='"+listGiai55[0]+"',giai4_0='"+listGiai40[0]+"',giai4_1='"+listGiai41[0]+"',giai4_2='"+listGiai42[0]+"',giai4_3='"+listGiai43[0]+"',giai3_0='"+listGiai30[0]+"',giai3_1='"+listGiai31[0]+"',giai3_2='"+listGiai32[0]+"',giai3_3='"+listGiai33[0]+"',giai3_4='"+listGiai34[0]+"',giai3_5='"+listGiai35[0]+"',giai2_0='"+listGiai20[0]+"',giai2_1='"+listGiai21[0]+"',giai1='"+listGiai1[0]+"',giai_db ='"+listGiaiDB[0]+"' WHERE name = 'mb_t3'";
-              dbConn.query(sqlBT, function (err, result) { if (err) throw err; console.log("insert MB_t3"); });
+              pool.query(sqlBT, function (err, result) { if (err) throw err; console.log("insert MB_t3"); });
               } else if (day == "Wednesday") {
               var sqlDN = "UPDATE kqsx SET giai7_0='"+listGiai70[0]+"',giai7_1='"+listGiai71[0]+"',giai7_2='"+listGiai72[0]+"',giai7_3='"+listGiai73[0]+"',giai6_0='"+listGiai60[0]+"',giai6_1='"+listGiai61[0]+"',giai6_2='"+listGiai62[0]+"',giai5_0='"+listGiai50[0]+"',giai5_1='"+listGiai51[0]+"',giai5_2='"+listGiai52[0]+"',giai5_3='"+listGiai53[0]+"',giai5_4='"+listGiai54[0]+"',giai5_5='"+listGiai55[0]+"',giai4_0 ='"+listGiai40[0]+"',giai4_1='"+listGiai41[0]+"',giai4_2='"+listGiai42[0]+"',giai4_3='"+listGiai43[0]+"',giai3_0='"+listGiai30[0]+"',giai3_1='"+listGiai31[0]+"',giai3_2='"+listGiai32[0]+"',giai3_3='"+listGiai33[0]+"',giai3_4='"+listGiai34[0]+"',giai3_5='"+listGiai35[0]+"',giai2_0='"+listGiai20[0]+"',giai2_1='"+listGiai21[0]+"',giai1='"+listGiai1[0]+"',giai_db ='"+listGiaiDB[0]+"' WHERE name ='mb_t4'";
-              dbConn.query(sqlDN, function (err, result) { if (err) throw err; console.log("insert MB_t4"); });
+              pool.query(sqlDN, function (err, result) { if (err) throw err; console.log("insert MB_t4"); });
               } else if (day == "Thursday") {
               var sqlTN = "UPDATE kqsx SET giai7_0='"+listGiai70[0]+"',giai7_1='"+listGiai71[0]+"',giai7_2='"+listGiai72[0]+"',giai7_3='"+listGiai73[0]+"',giai6_0='"+listGiai60[0]+"',giai6_1='"+listGiai61[0]+"',giai6_2='"+listGiai62[0]+"',giai5_0='"+listGiai50[0]+"',giai5_1='"+listGiai51[0]+"',giai5_2='"+listGiai52[0]+"',giai5_3='"+listGiai53[0]+"',giai5_4='"+listGiai54[0]+"',giai5_5='"+listGiai55[0]+"',giai4_0='"+listGiai40[0]+"',giai4_1='"+listGiai41[0]+"',giai4_2='"+listGiai42[0]+"',giai4_3='"+listGiai43[0]+"',giai3_0='"+listGiai30[0]+"',giai3_1='"+listGiai31[0]+"',giai3_2='"+listGiai32[0]+"',giai3_3='"+listGiai33[0]+"',giai3_4='"+listGiai34[0]+"',giai3_5='"+listGiai35[0]+"',giai2_0='"+listGiai20[0]+"',giai2_1='"+listGiai21[0]+"',giai1='"+listGiai1[0]+"',giai_db ='"+listGiaiDB[0]+"' WHERE name ='mb_t5'";
-              dbConn.query(sqlTN, function (err, result) { if (err) throw err; console.log("insert MB_t5"); });
+              pool.query(sqlTN, function (err, result) { if (err) throw err; console.log("insert MB_t5"); });
               } else if (day == "Friday") {
               var sqlVL = "UPDATE kqsx SET giai7_0='"+listGiai70[0]+"',giai7_1='"+listGiai71[0]+"',giai7_2='"+listGiai72[0]+"',giai7_3='"+listGiai73[0]+"',giai6_0='"+listGiai60[0]+"',giai6_1='"+listGiai61[0]+"',giai6_2='"+listGiai62[0]+"',giai5_0='"+listGiai50[0]+"',giai5_1='"+listGiai51[0]+"',giai5_2='"+listGiai52[0]+"',giai5_3='"+listGiai53[0]+"',giai5_4='"+listGiai54[0]+"',giai5_5='"+listGiai55[0]+"',giai4_0='"+listGiai40[0]+"',giai4_1='"+listGiai41[0]+"',giai4_2='"+listGiai42[0]+"',giai4_3='"+listGiai43[0]+"',giai3_0='"+listGiai30[0]+"',giai3_1='"+listGiai31[0]+"',giai3_2='"+listGiai32[0]+"',giai3_3='"+listGiai33[0]+"',giai3_4='"+listGiai34[0]+"',giai3_5='"+listGiai35[0]+"',giai2_0='"+listGiai20[0]+"',giai2_1='"+listGiai21[0]+"',giai1='"+listGiai1[0]+"',giai_db ='"+listGiaiDB[0]+"' WHERE name ='mb_t6'";
-              dbConn.query(sqlVL, function (err, result) { if (err) throw err; console.log("insert MB_t6"); });
+              pool.query(sqlVL, function (err, result) { if (err) throw err; console.log("insert MB_t6"); });
               }else if (day == "Saturday") {
               var sqlTP = "UPDATE kqsx SET giai7_0='"+listGiai70[0]+"',giai7_1='"+listGiai71[0]+"',giai7_2='"+listGiai72[0]+"',giai7_3='"+listGiai73[0]+"',giai6_0='"+listGiai60[0]+"',giai6_1='"+listGiai61[0]+"',giai6_2='"+listGiai62[0]+"',giai5_0='"+listGiai50[0]+"',giai5_1='"+listGiai51[0]+"',giai5_2='"+listGiai52[0]+"',giai5_3='"+listGiai53[0]+"',giai5_4='"+listGiai54[0]+"',giai5_5='"+listGiai55[0]+"',giai4_0='"+listGiai40[0]+"',giai4_1='"+listGiai41[0]+"',giai4_2='"+listGiai42[0]+"',giai4_3='"+listGiai43[0]+"',giai3_0='"+listGiai30[0]+"',giai3_1='"+listGiai31[0]+"',giai3_2='"+listGiai32[0]+"',giai3_3='"+listGiai33[0]+"',giai3_4='"+listGiai34[0]+"',giai3_5='"+listGiai35[0]+"',giai2_0='"+listGiai20[0]+"',giai2_1='"+listGiai21[0]+"',giai1='"+listGiai1[0]+"',giai_db ='"+listGiaiDB[0]+"' WHERE name ='mb_t7'";
-              dbConn.query(sqlTP, function (err, result) { if (err) throw err; console.log("insert MB_t7"); });
+              pool.query(sqlTP, function (err, result) { if (err) throw err; console.log("insert MB_t7"); });
               } else if (day == "Sunday") {
               var sqlTG = "UPDATE kqsx SET giai7_0='"+listGiai70[0]+"',giai7_1='"+listGiai71[0]+"',giai7_2='"+listGiai72[0]+"',giai7_3='"+listGiai73[0]+"',giai6_0='"+listGiai60[0]+"',giai6_1='"+listGiai61[0]+"',giai6_2='"+listGiai62[0]+"',giai5_0='"+listGiai50[0]+"',giai5_1='"+listGiai51[0]+"',giai5_2='"+listGiai52[0]+"',giai5_3='"+listGiai53[0]+"',giai5_4='"+listGiai54[0]+"',giai5_5='"+listGiai55[0]+"',giai4_0='"+listGiai40[0]+"',giai4_1='"+listGiai41[0]+"',giai4_2='"+listGiai42[0]+"',giai4_3='"+listGiai43[0]+"',giai3_0='"+listGiai30[0]+"',giai3_1='"+listGiai31[0]+"',giai3_2='"+listGiai32[0]+"',giai3_3='"+listGiai33[0]+"',giai3_4='"+listGiai34[0]+"',giai3_5='"+listGiai35[0]+"',giai2_0='"+listGiai20[0]+"',giai2_1='"+listGiai21[0]+"',giai1='"+listGiai1[0]+"',giai_db ='"+listGiaiDB[0]+"' WHERE name ='mb_cn'";
-              dbConn.query(sqlTG, function (err, result) { if (err) throw err; console.log("insert MB_CN"); });
+              pool.query(sqlTG, function (err, result) { if (err) throw err; console.log("insert MB_CN"); });
               }
           }
   
@@ -309,9 +310,8 @@ function loadData(){
 }
 getData();
 setInterval(loadData,5*60*1000);
-
 app.get('/user', function (req, res) {
-  dbConn.query('SELECT * FROM user', function (error, results, fields) {
+  pool.query('SELECT * FROM user', function (error, results, fields) {
       if (error) throw error;
       return res.send({ error: false, data: results, message: 'users list.' });
   });
@@ -321,7 +321,7 @@ app.get('/user/:id', function (req, res) {
   if (!user_id) {
       return res.status(400).send({ error: true, message: 'Please provide user_id' });
   }
-  dbConn.query('SELECT * FROM user where id=?', [user_id], function (error, results, fields) {
+  pool.query('SELECT * FROM user where id=?', [user_id], function (error, results, fields) {
       if (error) throw error;
       return res.send(results[0] );
   });
@@ -331,7 +331,7 @@ app.post('/user', function (req, res) {
   if (!user) {
       return res.status(400).send({ error:true, message: 'Please provide user' });
   }
-  dbConn.query("INSERT INTO user SET ? ", { user: user }, function (error, results, fields) {
+  pool.query("INSERT INTO user SET ? ", { user: user }, function (error, results, fields) {
       if (error) throw error;
       return res.send({ results });
   });
@@ -342,7 +342,7 @@ app.put('/user', function (req, res) {
   if (!user_id || !user) {
       return res.status(400).send({ error: user, message: 'Please provide user and user_id' });
   }
-  dbConn.query("UPDATE users SET user = ? WHERE id = ?", [user, user_id], function (error, results, fields) {
+  pool.query("UPDATE users SET user = ? WHERE id = ?", [user, user_id], function (error, results, fields) {
       if (error) throw error;
       return res.send({ results });
   });
@@ -352,13 +352,13 @@ app.delete('/user', function (req, res) {
   if (!user_id) {
       return res.status(400).send({ error: true, message: 'Please provide user_id' });
   }
-  dbConn.query('DELETE FROM user WHERE id = ?', [user_id], function (error, results, fields) {
+  pool.query('DELETE FROM user WHERE id = ?', [user_id], function (error, results, fields) {
       if (error) throw error;
       return res.send({ results});
   });
 });
 app.get('/kqsx', function (req, res) {
-  dbConn.query('SELECT * FROM kqsx', function (error, results, fields) {
+  pool.query('SELECT * FROM kqsx', function (error, results, fields) {
       if (error) throw error;
       return res.send({ results });
   });
@@ -368,7 +368,7 @@ app.get('/kqsx/:id', function (req, res) {
   if (!user_id) {
       return res.status(400).send({ error: true, message: 'Please provide user_id' });
   }
-  dbConn.query('SELECT * FROM kqsx where name=?', [user_id], function (error, results, fields) {
+  pool.query('SELECT * FROM kqsx where name=?', [user_id], function (error, results, fields) {
       if (error) throw error;
       return res.send( results[0] );
   });
